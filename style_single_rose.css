@@ -1,0 +1,619 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dark-color: #010113;
+  --rose-dark: #8B0000;
+  --rose-medium: #dc143c;
+  --rose-light: #ff1744;
+  --rose-pink: #ffb6c1;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--dark-color);
+  overflow: hidden;
+  perspective: 1000px;
+  /* Optimización para móviles */
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.night {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  filter: blur(0.1vmin);
+  background-image: radial-gradient(
+      ellipse at top,
+      transparent 0%,
+      var(--dark-color)
+    ),
+    radial-gradient(
+      ellipse at bottom,
+      var(--dark-color),
+      rgba(145, 233, 255, 0.2)
+    ),
+    repeating-linear-gradient(
+      220deg,
+      rgb(0, 0, 0) 0px,
+      rgb(0, 0, 0) 19px,
+      transparent 19px,
+      transparent 22px
+    ),
+    repeating-linear-gradient(
+      189deg,
+      rgb(0, 0, 0) 0px,
+      rgb(0, 0, 0) 19px,
+      transparent 19px,
+      transparent 22px
+    ),
+    repeating-linear-gradient(
+      148deg,
+      rgb(0, 0, 0) 0px,
+      rgb(0, 0, 0) 19px,
+      transparent 19px,
+      transparent 22px
+    ),
+    linear-gradient(90deg, rgb(139, 0, 0), rgb(220, 20, 60));
+}
+
+/* Contenedor del nombre */
+.name-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  text-align: center;
+}
+
+.name-text {
+  position: relative;
+  display: inline-block;
+}
+
+.name-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vmin;
+  animation: name-entrance 3s ease-out;
+}
+
+.letter {
+  font-family: 'Arial Black', 'Helvetica Bold', sans-serif;
+  font-size: 12vmin;
+  font-weight: 900;
+  color: transparent;
+  background: linear-gradient(
+    45deg,
+    #ff1744,
+    #ff6b9d,
+    #ff1744,
+    #dc143c,
+    #8B0000
+  );
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: 
+    0 0 2vmin rgba(255, 23, 68, 0.8),
+    0 0 4vmin rgba(255, 23, 68, 0.6),
+    0 0 6vmin rgba(255, 23, 68, 0.4);
+  animation: 
+    gradient-shift 4s ease-in-out infinite,
+    letter-glow 3s ease-in-out infinite,
+    letter-float 6s ease-in-out infinite;
+  transform-origin: center;
+  transition: all 0.3s ease;
+}
+
+/* Animación escalonada para cada letra */
+.letter-1 { animation-delay: 0.1s; }
+.letter-2 { animation-delay: 0.2s; }
+.letter-3 { animation-delay: 0.3s; }
+.letter-4 { animation-delay: 0.4s; }
+.letter-5 { animation-delay: 0.5s; }
+.letter-6 { animation-delay: 0.6s; }
+.letter-7 { animation-delay: 0.7s; }
+.letter-8 { animation-delay: 0.8s; }
+.letter-9 { animation-delay: 0.9s; }
+
+.name-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(220, 20, 60, 0.3) 0%, transparent 70%);
+  filter: blur(2vmin);
+  animation: pulse-glow 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Animaciones del nombre */
+@keyframes name-entrance {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(180deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1) rotate(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes letter-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 2vmin rgba(255, 23, 68, 0.8),
+      0 0 4vmin rgba(255, 23, 68, 0.6),
+      0 0 6vmin rgba(255, 23, 68, 0.4);
+  }
+  50% {
+    text-shadow: 
+      0 0 4vmin rgba(255, 23, 68, 1),
+      0 0 8vmin rgba(255, 23, 68, 0.8),
+      0 0 12vmin rgba(255, 23, 68, 0.6);
+  }
+}
+
+@keyframes letter-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-1vmin) scale(1.05);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Efecto de resplandor de la rosa */
+.flower__leafs::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20vmin;
+  height: 20vmin;
+  background: radial-gradient(circle, var(--rose-medium) 0%, transparent 70%);
+  filter: blur(15vmin);
+  animation: glow-pulse 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -100%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -100%) scale(1.2);
+  }
+}
+
+/* Pétalos adicionales con ::before */
+.flower__leafs::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 12vmin;
+  height: 15vmin;
+  border-radius: 80% 20% 80% 20%/90% 10% 90% 10%;
+  background-image: linear-gradient(315deg, var(--rose-dark), var(--rose-medium));
+  transform-origin: bottom center;
+  transform: translate(-50%, 0%) rotateY(-30deg) rotateX(-10deg);
+  opacity: 0.9;
+  box-shadow: inset 0 0 2vmin rgba(255, 255, 255, 0.3);
+  animation: petal-dance 5s ease-in-out infinite;
+  z-index: 3;
+}
+
+.flower__leaf {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 10vmin;
+  height: 12vmin;
+  border-radius: 80% 20% 80% 20%/70% 30% 70% 30%;
+  background-image: linear-gradient(135deg, var(--rose-dark), var(--rose-medium));
+  transform-origin: bottom center;
+  opacity: 0.95;
+  box-shadow: 
+    inset 0 0 2vmin rgba(255, 255, 255, 0.3), 
+    inset 0 0 1vmin rgba(139, 0, 0, 0.8),
+    0 0 1vmin rgba(220, 20, 60, 0.6);
+}
+
+/* Pétalos exteriores - capa 1 */
+.flower__leaf--1 {
+  transform: translate(-50%, 0%) rotateZ(0deg) rotateX(-20deg);
+  border-radius: 90% 10% 90% 10%/80% 20% 80% 20%;
+  background-image: linear-gradient(135deg, var(--rose-dark), var(--rose-medium));
+  width: 12vmin;
+  height: 14vmin;
+  animation: petal-bloom-1 2.5s ease-out 1s backwards;
+  z-index: 1;
+}
+
+.flower__leaf--2 {
+  transform: translate(-50%, 0%) rotateZ(90deg) rotateX(-20deg);
+  border-radius: 90% 10% 90% 10%/80% 20% 80% 20%;
+  background-image: linear-gradient(45deg, var(--rose-medium), var(--rose-light));
+  width: 12vmin;
+  height: 14vmin;
+  animation: petal-bloom-2 2.5s ease-out 1.2s backwards;
+  z-index: 1;
+}
+
+.flower__leaf--3 {
+  transform: translate(-50%, 0%) rotateZ(180deg) rotateX(-20deg);
+  border-radius: 90% 10% 90% 10%/80% 20% 80% 20%;
+  background-image: linear-gradient(225deg, var(--rose-dark), var(--rose-medium));
+  width: 12vmin;
+  height: 14vmin;
+  animation: petal-bloom-3 2.5s ease-out 1.4s backwards;
+  z-index: 1;
+}
+
+.flower__leaf--4 {
+  transform: translate(-50%, 0%) rotateZ(270deg) rotateX(-20deg);
+  border-radius: 90% 10% 90% 10%/80% 20% 80% 20%;
+  background-image: linear-gradient(315deg, var(--rose-dark), var(--rose-medium));
+  width: 12vmin;
+  height: 14vmin;
+  animation: center-bloom 2s ease-out 2s backwards;
+  z-index: 1;
+}
+
+.flower__white-circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4vmin;
+  height: 4vmin;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, var(--rose-pink), var(--rose-medium));
+  animation: center-glow 3s ease-in-out infinite;
+  z-index: 10;
+}
+
+@keyframes center-glow {
+  0%, 100% {
+    box-shadow: 0 0 5vmin rgba(255, 182, 193, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 8vmin rgba(255, 182, 193, 0.6);
+  }
+}
+
+/* Tallo de la rosa */
+.flower__line {
+  height: 40vmin;
+  width: 2vmin;
+  background-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 0.2),
+      transparent,
+      rgba(255, 255, 255, 0.2)
+    ),
+    linear-gradient(to top, transparent 10%, #056d24, #028137);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  animation: stem-grow 4s ease-out backwards;
+  position: relative;
+  top: 6vmin;
+}
+
+@keyframes stem-grow {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 40vmin;
+    opacity: 1;
+  }
+}
+
+/* Hojas del tallo */
+.flower__line__leaf {
+  --w: 8vmin;
+  --h: calc(var(--w) + 3vmin);
+  position: absolute;
+  top: 20%;
+  left: 90%;
+  width: var(--w);
+  height: var(--h);
+  border-top-right-radius: var(--h);
+  border-bottom-left-radius: var(--h);
+  background-image: linear-gradient(to top, rgba(12, 94, 32, 0.4), #028137);
+  animation: leaf-grow 1.5s ease-out backwards;
+}
+
+@keyframes leaf-grow {
+  0% {
+    transform: scale(0) rotate(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.flower__line__leaf--1 {
+  transform: rotate(70deg) rotateY(30deg);
+  animation-delay: 3s;
+}
+
+.flower__line__leaf--2 {
+  top: 45%;
+  transform: rotate(70deg) rotateY(30deg);
+  animation-delay: 3.2s;
+}
+
+.flower__line__leaf--3,
+.flower__line__leaf--4,
+.flower__line__leaf--6 {
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: var(--h);
+  border-bottom-right-radius: var(--h);
+  left: -460%;
+  top: 12%;
+  transform: rotate(-70deg) rotateY(30deg);
+  animation-delay: 3.4s;
+}
+
+.flower__line__leaf--4 {
+  top: 40%;
+  animation-delay: 3.6s;
+}
+
+.flower__line__leaf--5 {
+  top: 0;
+  transform-origin: left;
+  transform: rotate(70deg) rotateY(30deg) scale(0.6);
+  animation-delay: 3.8s;
+}
+
+.flower__line__leaf--6 {
+  top: -2%;
+  left: -450%;
+  transform-origin: right;
+  transform: rotate(-70deg) rotateY(30deg) scale(0.6);
+  animation-delay: 4s;
+}
+
+/* Luces mágicas alrededor de la rosa */
+.flower__light {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 1vmin;
+  height: 1vmin;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--rose-pink), transparent);
+  opacity: 0.8;
+  animation: light-twinkle 3s ease-in-out infinite;
+}
+
+.flower__light--1 { transform: translate(-8vmin, 2vmin); animation-delay: 0s; }
+.flower__light--2 { transform: translate(-6vmin, -1vmin); animation-delay: 0.5s; }
+.flower__light--3 { transform: translate(-4vmin, 3vmin); animation-delay: 1s; }
+.flower__light--4 { transform: translate(-2vmin, 1vmin); animation-delay: 1.5s; }
+.flower__light--5 { transform: translate(0vmin, -2vmin); animation-delay: 2s; }
+.flower__light--6 { transform: translate(2vmin, 2vmin); animation-delay: 2.5s; }
+.flower__light--7 { transform: translate(4vmin, 0vmin); animation-delay: 3s; }
+.flower__light--8 { transform: translate(6vmin, -1vmin); animation-delay: 3.5s; }
+
+@keyframes light-twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+/* Corazones flotantes */
+.bubbles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.bubble {
+  position: absolute;
+  width: 4vmin;
+  height: 4vmin;
+  opacity: 0;
+  animation: heart-float 8s linear infinite;
+}
+
+/* Diferentes tamaños de corazones */
+.bubble--large {
+  width: 8vmin;
+  height: 8vmin;
+  animation-duration: 12s;
+}
+
+.bubble--medium {
+  width: 5vmin;
+  height: 5vmin;
+  animation-duration: 10s;
+}
+
+.bubble--small {
+  width: 3vmin;
+  height: 3vmin;
+  animation-duration: 8s;
+}
+
+/* Posicionamiento aleatorio de corazones */
+.bubble:nth-child(1) { left: 5%; animation-delay: 0s; }
+.bubble:nth-child(2) { left: 15%; animation-delay: 2s; }
+.bubble:nth-child(3) { left: 85%; animation-delay: 4s; }
+.bubble:nth-child(4) { left: 25%; animation-delay: 1s; }
+.bubble:nth-child(5) { left: 75%; animation-delay: 3s; }
+.bubble:nth-child(6) { left: 35%; animation-delay: 5s; }
+.bubble:nth-child(7) { left: 65%; animation-delay: 1.5s; }
+.bubble:nth-child(8) { left: 10%; animation-delay: 3.5s; }
+.bubble:nth-child(9) { left: 90%; animation-delay: 0.5s; }
+.bubble:nth-child(10) { left: 45%; animation-delay: 2.5s; }
+.bubble:nth-child(11) { left: 55%; animation-delay: 4.5s; }
+.bubble:nth-child(12) { left: 20%; animation-delay: 1.8s; }
+.bubble:nth-child(13) { left: 80%; animation-delay: 3.8s; }
+.bubble:nth-child(14) { left: 30%; animation-delay: 0.8s; }
+.bubble:nth-child(15) { left: 70%; animation-delay: 2.8s; }
+
+@keyframes heart-float {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) scale(1) rotate(45deg);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) scale(0.8) rotate(315deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10vh) scale(0) rotate(360deg);
+  }
+}
+
+.heart {
+  fill: var(--rose-medium);
+  filter: drop-shadow(0 0 1vmin var(--rose-light));
+}
+
+/* Animaciones habilitadas */
+.container * {
+  animation-play-state: running;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .flowers {
+    transform: scale(1);
+  }
+  
+  .flower__leaf {
+    width: 10vmin;
+    height: 14vmin;
+  }
+  
+  .flower__line {
+    height: 50vmin;
+  }
+  
+  .letter {
+    font-size: 15vmin;
+    gap: 2vmin;
+  }
+  
+  .name-vertical {
+    gap: 2vmin;
+  }
+  
+  .bubble--large {
+    width: 10vmin;
+    height: 10vmin;
+  }
+  
+  .bubble--medium {
+    width: 7vmin;
+    height: 7vmin;
+  }
+  
+  .bubble--small {
+    width: 4vmin;
+    height: 4vmin;
+  }
+}
+
+@media (max-width: 480px) {
+  .letter {
+    font-size: 18vmin;
+  }
+  
+  .name-vertical {
+    gap: 3vmin;
+  }
+}
+
+/* Viewport específico para fondos de pantalla móvil */
+@media (max-height: 920px) and (max-width: 430px) {
+  /* iPhone 14 Pro Max y similares */
+  .letter {
+    font-size: 20vmin;
+  }
+}
+
+@media (max-height: 844px) and (max-width: 390px) {
+  /* iPhone 14 Pro y similares */
+  .letter {
+    font-size: 19vmin;
+  }
+}
+
+@media (max-height: 812px) and (max-width: 375px) {
+  /* iPhone X/11/12/13 y similares */
+  .letter {
+    font-size: 18vmin;
+  }
+}
